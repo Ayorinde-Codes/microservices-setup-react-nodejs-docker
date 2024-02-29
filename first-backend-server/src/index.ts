@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { sendNotFound, sendSuccess } from './utils/errorCodes'
 
 dotenv.config()
 
@@ -25,12 +26,12 @@ const server = http.createServer(app)
 const port = process.env.PORT || 4001
 
 app.get('/', (req: Request, res: Response) => {
-  return console.log('Welcome to first backend server')
+  return sendSuccess(res, 'Welcome to first backend server')
 })
 
-// app.use('*', (req: Request, res: Response) => {
-//   return console.log('Not Found')
-// })
+app.use('*', (req: Request, res: Response) => {
+  return sendNotFound(res, 'Not Found')
+})
 
 server.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`)
