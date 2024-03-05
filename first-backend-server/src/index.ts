@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import cors from 'cors'
+import connectDb from './models/connection'
 import dotenv from 'dotenv'
 import { sendNotFound, sendSuccess } from './utils/errorCodes'
 
@@ -34,5 +35,6 @@ app.use('*', (req: Request, res: Response) => {
 })
 
 server.listen(port, () => {
+  connectDb()
   console.log(`Server running on http://localhost:${port}`)
 })
