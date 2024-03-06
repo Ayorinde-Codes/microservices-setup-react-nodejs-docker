@@ -6,6 +6,7 @@ import compression from 'compression'
 import cors from 'cors'
 import connectDb from './models/connection'
 import dotenv from 'dotenv'
+import router from './router/index'
 import { sendNotFound, sendSuccess } from './utils/errorCodes'
 
 dotenv.config()
@@ -29,6 +30,8 @@ const port = process.env.PORT || 4001
 app.get('/', (req: Request, res: Response) => {
   return sendSuccess(res, 'Welcome to first backend server')
 })
+
+app.use('/api', router())
 
 app.use('*', (req: Request, res: Response) => {
   return sendNotFound(res, 'Not Found')
