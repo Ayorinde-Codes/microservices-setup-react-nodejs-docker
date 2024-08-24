@@ -82,7 +82,7 @@ frontend-server/
 ├── package.json
 ├── tsconfig.json
 └── README.md
-
+```
 
 Backend Key Components
 1. Root Configurations
@@ -102,16 +102,57 @@ response.ts: Utility functions to send standardized responses.
 3. Environment Setup
 Ensure the presence of a .env file with the following environment variables:
 
-Endpoints
+```bash
+PORT=4001
+DB_HOST=your_mongodb_uri
+REDIS_HOST=your_redis_host
+REDIS_PORT=your_redis_port
+REDIS_PASSWORD=your_redis_password
+```
+##Frontend Key Components
+App.tsx: Entry point of the React application. Renders the main SampleComponent.
+SampleComponent.tsx: Fetches data from the backend using axios and displays it in a list format.
+index.tsx: The main entry point for rendering the React application to the DOM.
+styles.css: Global styles applied to the React application.
+
+##Running the Project
+1. Docker Setup
+Ensure Docker is installed on your machine. Then, navigate to the project directory and use Docker Compose to start the services:
+```bash
+docker-compose up
+```
+This will build and start the backend, frontend, MongoDB, and Redis containers.
+
+2. Local Setup
+For local development, ensure you have Node.js installed. Then, navigate to the project directory and run the following commands:
+
+```bash
+# Install dependencies
+npm install
+
+# Start the backend server
+npm run dev
+```
+To start the frontend server, navigate to the frontend-server/ directory and run:
+```bash
+# Install dependencies
+npm install
+
+# Start the frontend server
+npm start
+```
+
+
+###Endpoints
 GET /api/sample/details
 Fetches the sample data from the backend server, using Redis for caching responses.
 
-Additional Thoughts
+###Additional Thoughts
 1. Scaling
 Scaling this application would involve utilizing Docker for containerization, deploying multiple instances of the backend services, and using a load balancer.
 
 2. Dockerization
 The Dockerization of both the backend and frontend servers allows for easier deployment across environments and consistent development experiences. Future iterations could also benefit from implementing a CI/CD pipeline using Docker.
 
-Conclusion
+###Conclusion
 This project is a full-stack application that showcases the use of Node.js, Express, MongoDB, Redis, React, and Docker in a streamlined, modular setup. This repository is a good starting point for building scalable applications that utilize caching and efficient data management techniques.
