@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const RECONNECT_TO_DB_ON_FAIL = 3
 // const DB_HOST = process.env.DB_HOST || 'localhost'
 const DB_HOST = process.env.DB_HOST || 'mongodb'
-const DB_NAME = 'first-backend-server'
+const DB_NAME = 'sample-backend-server'
 
 const MONGO_PORT = 27017
 const connection = `mongodb://${DB_HOST}:${MONGO_PORT}/${DB_NAME}`

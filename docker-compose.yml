@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  backend-server:
+    container_name: "backend-server"
+    build: ./backend-server/.
+    env_file: ./backend-server/.env
+    ports:
+      - '4001:4001'
+    networks:
+      - mynetwork
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - backend-data:/app/data
+
+  frontend-server:
+    container_name: "frontend-server"
+    build: ./frontend-server/.
+    env_file: ./frontend-server/.env
+    ports:
+      - '4000:4000'
+    networks:
+      - mynetwork
+    depends_on:
+      - backend-server
+    links:
+      - backend-server
+    volumes:
+      - frontend-data:/app/data
+
+  mongodb:
+    container_name: "mongodb-database"
+    image: mongo:4.2.5
+    networks:
+      - mynetwork
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+
+  redis:
+    container_name: redis-server
+    image: "redis:latest"
+    env_file: .env
+    networks:
+      - mynetwork
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass ${REDIS_PASSWORD} --loglevel ${REDIS_LOGLEVEL}
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  backend-data:
+  frontend-data:
+  mongodb-data:
